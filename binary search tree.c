@@ -1,30 +1,29 @@
-//
-// Created by edoge on 04/07/2022.
-//
+#include <stdio.h>
+#include <stdlib.h>
 
-typedef struct nodo_{
-    struct nodo_* p;
-    struct nodo_* left;
-    struct nodo_* right;
+typedef struct node_{
+    struct node_* p;
+    struct node_* left;
+    struct node_* right;
     int key;
-}nodo_t;
+}node_t;
 
-int inorderBSTWalk(nodo_t* t) {
+int inorderWalkBST(node_t* t) {
     int l, r;
     if (t != NULL) {
-        l = inorderBSTWalk(t->left);
+        l = inorderWalkBST(t->left);
         printf("%d\n", t->key);
-        r = inorderBSTWalk(t->right);
+        r = inorderWalkBST(t->right);
         return l+r+1;
     }
     return 0;
 }
-nodo_t* BSTInsert(nodo_t* t, int n){
-    nodo_t* y = NULL;
-    nodo_t* x = t;
-    nodo_t* z;
+node_t* insertBST(node_t* t, int n){
+    node_t* y = NULL;
+    node_t* x = t;
+    node_t* z;
 
-    z = (nodo_t*)malloc(sizeof(nodo_t));
+    z = (node_t*)malloc(sizeof(node_t));
     if(z == NULL) {
         printf("Malloc Error");
         return NULL;
@@ -51,27 +50,29 @@ nodo_t* BSTInsert(nodo_t* t, int n){
 
     return t;
 }
-nodo_t* BSTSearch(nodo_t* t, int k){
+node_t* searchBST(node_t* t, int k){
     if(t == NULL || k == t->key)
         return  t;
     if(k < t->key)
-        return BSTSearch(t->left, k);
-    return BSTSearch(t->right, k);
+        return searchBST(t->left, k);
+    return searchBST(t->right, k);
 }
-nodo_t* BSTMinimum(nodo_t* x){
+node_t* minimumBST(node_t* x){
     while(x->left != NULL)
         x = x->left;
     return x;
 }
-nodo_t* BSTMaximum(nodo_t* x){
+
+node_t* maximumBST(node_t* x){
     while(x->right != NULL)
         x = x->right;
     return x;
 }
-nodo_t* BSTSuccessor(nodo_t* x){
-    nodo_t* y;
+
+node_t* successorBST(node_t* x){
+    node_t* y;
     if(x->right == NULL)
-        return BSTMinimum(x->right);
+        return minimumBST(x->right);
     y = x->p;
     while (y != NULL && x == y->right){
         x = y;
@@ -79,14 +80,14 @@ nodo_t* BSTSuccessor(nodo_t* x){
     }
     return y;
 }
-void BSTDelete(nodo_t* t, nodo_t* z){
+void deleteNodeBST(node_t* t, node_t* z){
     //y è il nodo da eliminare
     //x è quello con cui lo sostituiamo
-    nodo_t *x, *y;
+    node_t *x, *y;
     if(z->left == NULL || z->right == NULL)
         y = z;
     else
-        y = BSTSuccessor(z);
+        y = successorBST(z);
 
     if(y->left != NULL)
         x = y->left;
@@ -107,21 +108,4 @@ void BSTDelete(nodo_t* t, nodo_t* z){
         z->key = y->key;
 
     free(y);
-}
-
-
-int main() {
-    int n, nodi;
-    nodo_t* t;
-
-    scanf("%d", &n);
-    while(n!=0){
-        BSTInsert(t,n);
-        scanf("%d",&n);
-    }
-
-    nodi = inorderBSTWalk(t);
-    printf("nodi: %d", nodi);
-
-    return 0;
 }
