@@ -52,8 +52,8 @@ void printElementsInStackLL(stackLinkedList_t *top){
     }
 }
 
-int isStackLLVoid(stackLinkedList_t *top){
-    return top == NULL ? 1 : 0;
+int isStackLLEmpty(stackLinkedList_t *top){
+    return top == NULL;
 }
 
 //--------------------------------//
@@ -76,18 +76,18 @@ stackArray_t *inizializeStackArray(unsigned capacity){
     return s;
 }
 
-int isFull(stackArray_t *stack)
+int isStackArFull(stackArray_t *stack)
 {
     return stack->top == stack->capacity - 1;
 }
 
-int isEmpty(stackArray_t *stack)
+int isStackArEmpty(stackArray_t *stack)
 {
     return stack->top == -1;
 }
 
 void popStackArray(stackArray_t *stack, int n){
-    if(isFull(stack)){
+    if(isStackArFull(stack)){
         printf("The stack is full\n");
         return;
     }
@@ -96,7 +96,7 @@ void popStackArray(stackArray_t *stack, int n){
 }
 
 int pushStackArray(stackArray_t *stack){
-    if(isEmpty(stack)){
+    if(isStackArEmpty(stack)){
         printf("The stack is empty\n");
         return INT_MIN;
     }
