@@ -27,6 +27,10 @@ stackLinkedList_t *popStackLL(stackLinkedList_t *top){
 //returns the new top
 stackLinkedList_t *pushStackLL(stackLinkedList_t *top, int n){
     stackLinkedList_t *tmp = malloc(sizeof(stackLinkedList_t));
+    if(tmp == NULL) {
+        printf("Malloc Error");
+        return top;
+    }
 
     tmp->key = n;
     tmp->next = top;
@@ -68,8 +72,16 @@ typedef struct stackArray_{
 
 stackArray_t *inizializeStackArray(unsigned capacity){
     stackArray_t *s = malloc(sizeof(stackArray_t));
+    if(s == NULL) {
+        printf("Malloc Error");
+        return NULL;
+    }
 
     s->array = malloc(sizeof(int)*capacity);
+    if(s == NULL) {
+        printf("Malloc Error");
+        return NULL;
+    }
     s->capacity = capacity;
     s->top = -1;
 

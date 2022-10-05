@@ -99,10 +99,11 @@ void insertRB(tree_t * t, int n) {
     x = t->root;
 
     z = (node_t *) malloc(sizeof(node_t));
-    if (!z) {
-        printf("Errore malloc");
+    if(z == NULL) {
+        printf("Malloc Error");
         return;
     }
+
     z->key = n;
     z->left = t->nil;
     z->right = t->nil;
@@ -132,7 +133,15 @@ void insertRB(tree_t * t, int n) {
 tree_t* initializeRB(){
     tree_t* t;
     t = (tree_t*)malloc(sizeof(tree_t));
+    if(t == NULL) {
+        printf("Malloc Error");
+        return NULL;
+    }
     t->nil = (node_t*)malloc(sizeof(node_t));
+    if(t->nil == NULL) {
+        printf("Malloc Error");
+        return NULL;
+    }
     t->nil->left = NULL;
     t->nil->right = NULL;
     t->nil->color = 'B';

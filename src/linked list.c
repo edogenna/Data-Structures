@@ -10,6 +10,10 @@ node_t* appendList(node_t* list, int num){
     node_t *prec;
     node_t *tmp;
     tmp = malloc(sizeof(node_t));
+    if(tmp == NULL) {
+        printf("Malloc Error");
+        return NULL;
+    }
 
     tmp->next = NULL;
     tmp->key = num;
@@ -27,6 +31,10 @@ node_t* appendList(node_t* list, int num){
 node_t* pushList(node_t* list, int num){
     node_t *tmp;
     tmp = malloc(sizeof(node_t));
+    if(tmp == NULL) {
+        printf("Malloc Error");
+        return NULL;
+    }
 
     tmp->key = num;
     tmp->next = list;

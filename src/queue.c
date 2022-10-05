@@ -22,12 +22,21 @@ int isQueueLLEmpty(queueLinkedList_t *q){
 
 queueLinkedList_t* createQueueLL(){
     queueLinkedList_t *q= malloc(sizeof(queueLinkedList_t));
+    if(q == NULL) {
+        printf("Malloc Error");
+        return NULL;
+    }
     q->front = q->rear = NULL;
     return q;
 }
 
 void enqueueLL(queueLinkedList_t *q, int n){
     queueLLNode_t *newNode = malloc(sizeof(queueLLNode_t));
+    if(newNode == NULL) {
+        printf("Malloc Error");
+        return;
+    }
+
     newNode->key = n;
     newNode->next = NULL;
 
@@ -74,4 +83,82 @@ int countElementsInQueueLL(queueLinkedList_t *q){
     }
 
     return count;
+}
+
+
+//--------------------------------//
+// USING AN ARRAY AS A QUEUE
+//--------------------------------//
+
+typedef struct queueArray_{
+    int front, rear, size; //highest position occupied
+    int *array;
+    int capacity;
+}queueArray_t;
+
+queueArray_t *createQueueArray(int capacity){
+    queueArray_t *q = malloc(sizeof(queueArray_t));
+    if(q == NULL) {
+        printf("Malloc Error");
+        return NULL;
+    }
+
+    q->capacity = capacity;
+    q->array = malloc(sizeof(int)*capacity);
+    if(q->array == NULL) {
+        printf("Malloc Error");
+        return NULL;
+    }
+
+    q->front = q->size = 0;
+    q->rear = capacity - 1;
+}
+
+int isQueueArrayFull(queueArray_t *q){
+    return q->capacity == q->size;
+}
+
+int isQueueArrayEmpty(queueArray_t *q){
+    return q->size == 0;
+}
+
+void enqueueArray(queueArray_t *q, int n){
+    if(isQueueArrayFull(q)){
+        printf("Queue is full\n");
+        return;
+    }
+
+    q->rear = (q->rear + 1) % q->capacity;
+    q->array[q->rear] = n;
+    (q->size) ++;
+}
+
+int dequeueArray(queueArray_t *q){
+    if(isQueueArrayEmpty(q)){
+        printf("Queue is empty\n");
+        return INT_MIN;
+    }
+
+    int n = q->array[q->front];
+    (q->size) --;
+    q->front = (q->front + 1) % q->capacity;
+    return n;
+}
+
+//get the front of the queue, the oldest number insered
+int frontQueueArray(queueArray_t *q){
+    if(isQueueArrayEmpty(q)){
+        printf("Queue is empty\n");
+        return INT_MIN;
+    }
+    return q->array[q->front];
+}
+
+//get the rear of the queue, the latest number insered
+int rearQueueArray(queueArray_t *q){
+    if(isQueueArrayEmpty(q)){
+        printf("Queue is empty\n");
+        return INT_MIN;
+    }
+    return q->array[q->rear];
 }
