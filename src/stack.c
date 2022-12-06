@@ -121,7 +121,7 @@ int popStackArray(stackArray_t *stack){
 
 void reverseStackArray(stackArray_t *stack){
     int tmp;
-    for(int i = 0; i <= stack->top; i++){
+    for(int i = 0; i <= stack->top/2; i++){
         tmp = stack->array[i];
         stack->array[i] = stack->array[stack->top-i];
         stack->array[stack->top-i] = tmp;
