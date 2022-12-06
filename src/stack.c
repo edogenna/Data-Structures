@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 
 //--------------------------------//
 // USING A LINKED LIST AS A STACK
@@ -98,7 +99,7 @@ int isStackArEmpty(stackArray_t *stack)
     return stack->top == -1;
 }
 
-void popStackArray(stackArray_t *stack, int n){
+void pushStackArray(stackArray_t *stack, int n){
     if(isStackArFull(stack)){
         printf("The stack is full\n");
         return;
@@ -107,7 +108,7 @@ void popStackArray(stackArray_t *stack, int n){
     stack->array[stack->top] = n;
 }
 
-int pushStackArray(stackArray_t *stack){
+int popStackArray(stackArray_t *stack){
     if(isStackArEmpty(stack)){
         printf("The stack is empty\n");
         return INT_MIN;
@@ -116,4 +117,19 @@ int pushStackArray(stackArray_t *stack){
     int n = stack->array[stack->top];
     stack->top --;
     return n;
+}
+
+void reverseStackArray(stackArray_t *stack){
+    int tmp;
+    for(int i = 0; i <= stack->top; i++){
+        tmp = stack->array[i];
+        stack->array[i] = stack->array[stack->top-i];
+        stack->array[stack->top-i] = tmp;
+    }
+}
+
+void printStackArray(stackArray_t *stack){
+    printf("Printing the stack from the bottom: \n");
+    for(int i = 0; i <= stack->top; i++)
+        printf("%d\n", stack->array[i]);
 }
