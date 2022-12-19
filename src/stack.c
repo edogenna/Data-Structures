@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 
 //--------------------------------//
 // USING A LINKED LIST AS A STACK
@@ -116,4 +117,19 @@ int popStackArray(stackArray_t *stack){
     int n = stack->array[stack->top];
     stack->top --;
     return n;
+}
+
+void reverseStackArray(stackArray_t *stack){
+    int tmp;
+    for(int i = 0; i <= stack->top/2; i++){
+        tmp = stack->array[i];
+        stack->array[i] = stack->array[stack->top-i];
+        stack->array[stack->top-i] = tmp;
+    }
+}
+
+void printStackArray(stackArray_t *stack){
+    printf("Printing the stack from the bottom: \n");
+    for(int i = 0; i <= stack->top; i++)
+        printf("%d\n", stack->array[i]);
 }
