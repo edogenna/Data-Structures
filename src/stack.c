@@ -98,7 +98,7 @@ int isStackArEmpty(stackArray_t *stack)
     return stack->top == -1;
 }
 
-void popStackArray(stackArray_t *stack, int n){
+void pushStackArray(stackArray_t *stack, int n){
     if(isStackArFull(stack)){
         printf("The stack is full\n");
         return;
@@ -107,7 +107,7 @@ void popStackArray(stackArray_t *stack, int n){
     stack->array[stack->top] = n;
 }
 
-int pushStackArray(stackArray_t *stack){
+int popStackArray(stackArray_t *stack){
     if(isStackArEmpty(stack)){
         printf("The stack is empty\n");
         return INT_MIN;
